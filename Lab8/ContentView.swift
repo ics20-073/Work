@@ -10,21 +10,30 @@ import RealityKit
 
 struct ContentView : View {
     var body: some View {
-        return ARViewContainer().edgesIgnoringSafeArea(.all)
+        VStack{
+            ARViewContainer().edgesIgnoringSafeArea(.all)
+            Button(action: {ARViewContainer.boxAnchor.notifications.startNotification.post()}) {
+                Text("pleaseworkpp")
+            }
+            
+       
     }
+}
 }
 
 struct ARViewContainer: UIViewRepresentable {
-    
+    static let boxAnchor = try! Experience.loadBiplane()
     func makeUIView(context: Context) -> ARView {
         
         let arView = ARView(frame: .zero)
         
         // Load the "Box" scene from the "Experience" Reality File
-        let boxAnchor = try! Experience.loadBox()
+        //let boxAnchor = try! Experience.loadBiplane()
         
         // Add the box anchor to the scene
-        arView.scene.anchors.append(boxAnchor)
+        arView.scene.anchors.append(ARViewContainer.boxAnchor)
+        
+    
         
         return arView
         
